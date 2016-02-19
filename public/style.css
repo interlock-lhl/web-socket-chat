@@ -1,0 +1,6 @@
+#messages {
+  max-height: 500px;
+  height: 300px;
+  overflow-y: auto;
+  border: 1px red solid;
+}

@@ -16,6 +16,11 @@ io.on('connection', function(socket) {
   socket.connected_at = new Date();
 
   socket.on('message-send', function(data) {
+    var message = data.message;
+    message = message.trim();
+    if (message.length == 0) {
+      socket.emit('error', 'Chat message length invalid');
+    };
     var hash = crypto.createHash('sha256')
     io.emit('chat-event', {id: hash.update(socket.id).digest('hex'), message: data.message});
   });
