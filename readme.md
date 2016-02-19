@@ -3,4 +3,6 @@ Uses express.js and socket.io to make a chat room. Style with bootstrap and made
 
 https://en.gravatar.com/
 
-http://api.adorable.io/avatars/285/cat
+http://api.adorable.io/avatars/64/cat
+
+http://www.websocket.org/

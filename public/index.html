@@ -23,23 +23,31 @@
       <div class="panel-heading">
         <h3 class="panel-title">Chat</h3>
       </div>
-      <div class="panel-body">
+      <div id="messages" class="panel-body panel-messages">
         <!-- chat goes here -->
       </div>
       <div class="panel-footer">
         <div class="input-group">
-          <input type="text" class="form-control" placeholder="Chat Message">
+          <input id="message" type="text" class="form-control" placeholder="Chat Message">
           <span class="input-group-btn">
-            <button class="btn btn-default" type="button">Send</button>
+            <button id="message-send" class="btn btn-default" type="button">Send</button>
           </span>
         </div><!-- /input-group -->
       </div>
     </div>
 
+    <script id="chat-template" type="text/x-handlebars-template">
+      <div>
+        <span><img src="http://api.adorable.io/avatars/64/{{id}}" /></span>: {{message}}
+      </div>
+    </script>
+
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script src="/app.js"></script>
   </body>
 </html>
