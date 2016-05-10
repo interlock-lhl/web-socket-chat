@@ -19,6 +19,24 @@
     <![endif]-->
   </head>
   <body>
+    <!-- register modal -->
+    <div id="registerModal" class="modal fade" data-backdrop="static" tabindex="-1" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+
+            <h4 class="modal-title">Register</h4>
+          </div>
+          <div class="modal-body">
+            <p>Who are you? <input type="text" name="who" /></p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" id="registerButton">Register</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
     <div class="panel panel-default">
       <div class="panel-heading">
         <h3 class="panel-title">Chat</h3>
@@ -27,6 +45,7 @@
         <!-- chat goes here -->
       </div>
       <div class="panel-footer">
+        <div id="chatters"></div>
         <div class="input-group">
           <input id="message" type="text" class="form-control" placeholder="Chat Message">
           <span class="input-group-btn">
@@ -38,7 +57,7 @@
 
     <script id="chat-template" type="text/x-handlebars-template">
       <div>
-        <span><img src="http://api.adorable.io/avatars/64/{{id}}" /></span>: {{message}}
+        <span><img src="http://api.adorable.io/avatars/32/{{id}}"></span><span>{{who}}</span>: {{message}}
       </div>
     </script>
 

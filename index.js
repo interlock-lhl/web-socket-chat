@@ -1,27 +1,57 @@
-var express = require('express');
-var app = express();
-var server = require('http').createServer(app);
-var io = require('socket.io')(server);
-var crypto = require('crypto');
-var port = process.env['PORT'] || 3000;
+const express = require('express');
+const app = express();
+const server = require('http').createServer(app);
+const io = require('socket.io')(server);
+const crypto = require('crypto');
+const port = process.env.PORT || 3000;
 
 app.use(express.static(__dirname + '/public'));
 
-server.listen(port, function() {
+server.listen(port, '0.0.0.0', function() {
   console.log('listen on port ' + port);
 });
 
-io.on('connection', function(socket) {
-  console.log('new connection: ' + socket.id);
-  socket.connected_at = new Date();
+var history = [];
+var typers = [];
 
-  socket.on('message-send', function(data) {
-    var message = data.message;
-    message = message.trim();
-    if (message.length == 0) {
-      socket.emit('error', 'Chat message length invalid');
-    };
-    var hash = crypto.createHash('sha256')
-    io.emit('chat-event', {id: hash.update(socket.id).digest('hex'), message: data.message});
+io.on('connection', function(socket) {
+  // console.log(socket.conn.request.remoteIp);
+  console.log(`new connection from: [${socket.id}][${socket.ip}]`);
+
+  socket.on('register', function(data) {
+    socket.who = data.who;
+    var id = crypto.createHash('sha256').update(data.who, 'utf8').digest().toString('hex');
+    socket.who_id = id;
+    socket.emit('registered', { status: 'OK' });
+    socket.emit('messages', history);
+    io.emit('joined', { who: data.who});
+  });
+
+  socket.on('typing', function() {
+    if (typers.indexOf(socket.who) == -1) {
+      typers.push(socket.who);
+      io.emit('typing', typers);
+    }
+  });
+
+  socket.on('message', function(data) {
+    if (socket.who === undefined) {
+      return socket.emit('error', { message: "Only registered users can send messages"});
+    }
+    console.log(`MSG[${socket.id}][${data.message}]`);
+    history.push({
+      message: data.message,
+      who: socket.who,
+      id: socket.who_id
+    });
+    io.emit('message', {
+      message: data.message,
+      who: socket.who,
+      id: socket.who_id
+    });
+  });
+
+  socket.on('disconnect', function(){
+    console.log(`disconnected [${socket.id}]`);
   });
 });
