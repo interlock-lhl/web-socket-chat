@@ -2,7 +2,7 @@
   "name": "web-sockets",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "lib/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./lib/server.js"
@@ -13,5 +13,11 @@
     "express": "^4.13.4",
     "socket.io": "^1.4.5",
     "underscore": "^1.8.3"
+  },
+  "devDependencies": {
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-express": "^1.4.1",
+    "grunt-express-server": "^0.5.3",
+    "grunt-parallel": "^0.5.1"
   }
 }
