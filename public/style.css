@@ -8,3 +8,8 @@
 .message {
   overflow-x: scroll;
 }
+
+.message img {
+  width: 32px;
+  height: 32px;
+}

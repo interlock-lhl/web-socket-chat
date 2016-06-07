@@ -16,8 +16,13 @@ $(function() {
   socket.on('info', function(type, value) {
     if (type == 'USER_COUNT') {
       $('#clients').html(value);
+    } else if (type == 'JOINED_ROOM') {
+      $('.room').html(value);
+    } else if (type == 'ROOM_COUNT') {
+      console.log(type, value);
+      $('#room_clients').html(value);
     } else {
-      console.log(type, values);
+      console.log(type, value);
     }
   });
 
