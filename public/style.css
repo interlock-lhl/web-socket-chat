@@ -4,3 +4,7 @@
   overflow-y: auto;
   border: 1px red solid;
 }
+
+.message {
+  overflow-x: scroll;
+}
