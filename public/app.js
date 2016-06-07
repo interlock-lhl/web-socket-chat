@@ -3,11 +3,21 @@ $(function() {
   var sentTime = null;
 
   socket.on('message', function(who, message) {
-    if (who === "SERVER") {
+    if (who === 'SERVER') {
       console.log(who, message);
     } else {
-      console.log(Date.now() - sentTime);
+      if (who === socket.id) {
+        console.log(Date.now() - sentTime);
+      }
       insertChatMessage(who, message);
+    }
+  });
+
+  socket.on('info', function(type, value) {
+    if (type == 'USER_COUNT') {
+      $('#clients').html(value);
+    } else {
+      console.log(type, values);
     }
   });
 
